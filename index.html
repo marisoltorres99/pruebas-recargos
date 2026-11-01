@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Recargos | Escuela</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e0e7ff, #f8fafc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #1e293b;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 15px 40px rgba(30, 41, 59, 0.12);
+    }
+
+    .icon {
+      width: 56px;
+      height: 56px;
+      background: #eef2ff;
+      color: #4f46e5;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 25px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.2s;
+      background: #f8fafc;
+    }
+
+    input:focus {
+      border-color: #6366f1;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+    .helper {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 24px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: #4338ca;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(79, 70, 229, 0.25);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .resultado-box {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      animation: aparecer 0.3s ease;
+    }
+
+    .resultado-box.exito {
+      display: block;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+    }
+
+    .resultado-box.error {
+      display: block;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .resultado-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    #resultado {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .exito #resultado {
+      color: #15803d;
+    }
+
+    .error #resultado {
+      color: #dc2626;
+      font-size: 18px;
+    }
+
+    .info {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .info-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #475569;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .info-row strong {
+      color: #334155;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+
+      <div class="icon">🎓</div>
+
+      <h1>Calculadora de Recargos</h1>
+
+      <p class="subtitle">
+        Consultá el porcentaje de recargo correspondiente
+        según el día de pago de la cuota escolar.
+      </p>
+
+      <label for="dia">Día de pago</label>
+
+      <div class="input-group">
+        <input
+          type="text"
+          id="dia"
+          placeholder="Ej: 15"
+          autocomplete="off"
+        >
+      </div>
+
+      <p class="helper">
+        Ingresá un número entero entre 1 y 31.
+      </p>
+
+      <button id="calcular">
+        Calcular recargo
+      </button>
+
+      <div id="resultadoBox" class="resultado-box">
+        <p class="resultado-label">Resultado de la consulta</p>
+        <p id="resultado"></p>
+      </div>
+
+      <div class="info">
+        <p class="info-title">Tabla de recargos</p>
+
+        <div class="info-row">
+          <span>Días 1 al 10</span>
+          <strong>Sin recargo (0%)</strong>
+        </div>
+
+        <div class="info-row">
+          <span>Días 11 al 20</span>
+          <strong>Recargo del 2%</strong>
+        </div>
+
+        <div class="info-row">
+          <span>Días 21 al 31</span>
+          <strong>Recargo del 4%</strong>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer">
+      Sistema de Gestión Escolar · Trabajo Práctico QA
+    </p>
+  </div>
+
+  <script>
+    const boton = document.getElementById("calcular");
+    const input = document.getElementById("dia");
+    const resultado = document.getElementById("resultado");
+    const resultadoBox = document.getElementById("resultadoBox");
+
+    function calcularRecargo() {
+      const entrada = input.value.trim();
+      const dia = Number(entrada);
+
+      resultadoBox.className = "resultado-box";
+
+      if (
+        entrada === "" ||
+        !Number.isInteger(dia) ||
+        dia < 1 ||
+        dia > 31
+      ) {
+        resultado.textContent = "Día inválido";
+        resultadoBox.classList.add("error");
+        return;
+      }
+
+      let recargo;
+
+      if (dia <= 10) {
+        recargo = 0;
+      } else if (dia <= 20) {
+        recargo = 2;
+      } else {
+        recargo = 4;
+      }
+
+      resultado.textContent = `Recargo: ${recargo}%`;
+      resultadoBox.classList.add("exito");
+    }
+
+    boton.addEventListener("click", calcularRecargo);
+
+    input.addEventListener("keydown", (evento) => {
+      if (evento.key === "Enter") {
+        calcularRecargo();
+      }
+    });
+  </script>
+</body>
+</html>
